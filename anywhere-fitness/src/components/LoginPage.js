@@ -4,7 +4,7 @@ import React from 'react'
 const LoginPage = () => {
 
     return (
-        <div>
+        <div id='loginPage'>
             Login Page
 
             <form>

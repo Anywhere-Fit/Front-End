@@ -4,7 +4,7 @@ import React from 'react'
 const SignUpPage = () => {
 
     return (
-        <div id=''>
+        <div id='signUpPage'>
             SignUp Page
 
             <form>
