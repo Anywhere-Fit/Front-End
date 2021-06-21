@@ -1,12 +1,16 @@
-
 import './App.css';
+import LoginPage from './components/LoginPage';
+import SignUpPage from './components/SignUpPage';
+import React, { useState } from 'react';
 
 function App() {
+  
+  
   return (
     <div className="App">
-      <header className="App-header">
-      <h1>Welcome to Anywhere Fintness!!</h1>
-      </header>
+      
+      <h1>Welcome to Anywhere Fitness!!</h1>
+      <SignUpPage/>
     </div>
   );
 }
