@@ -63,7 +63,7 @@ export const getClasses = () => (dispatch) => {
         });
       });
   };
-  export const deleteRecipe = (class_id) => (dispatch) => {
+  export const deleteClass = (class_id) => (dispatch) => {
     dispatch({ type:  DELETE_CLASS_LOADING });
     axiosWithAuth()
       .delete(`api/classes/${class_id}`)
@@ -75,11 +75,11 @@ export const getClasses = () => (dispatch) => {
         });
       });
   };
-  export const editRecipe = (class_id, editedRecipe) => (dispatch) => {
+  export const editClass = (class_id, editedClass) => (dispatch) => {
     console.log(class_id);
     dispatch({ type: EDIT_CLASS_LOADING });
     axiosWithAuth()
-      .put(`api/classes/${class_id}`, editedRecipe)
+      .put(`api/classes/${class_id}`, editedClass)
       .then((res) => dispatch({ type: EDIT_CLASS_SUCCESS, payload: res.data }))
       .catch((err) => {
         dispatch({
