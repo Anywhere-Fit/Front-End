@@ -1,3 +1,5 @@
+
+
 import "./App.css";
 import LoginPage from "./components/LoginPage";
 import SignUpPage from "./components/SignUpPage";
@@ -16,6 +18,7 @@ function App() {
         </Switch>
       </div>
     </Router>
+
   );
 }
 
