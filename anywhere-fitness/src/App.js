@@ -1,15 +1,24 @@
-import './App.css';
-import LoginPage from './components/LoginPage';
-import SignUpPage from './components/SignUpPage';
-import React from 'react';
 
+
+import "./App.css";
+import LoginPage from "./components/LoginPage";
+import SignUpPage from "./components/SignUpPage";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
-  
+  //Private Route is available for all pages within the app.
   return (
-    <div className="App">
-      <h1>Welcome to Anywhere Fitness!!</h1>
-    </div>
+    <Router>
+      <div className="App">
+        <h1>Welcome to Anywhere Fitness!!</h1>
+        <Switch>
+          <Route exact path="/login" component={LoginPage} />
+          <SignUpPage />
+        </Switch>
+      </div>
+    </Router>
+
   );
 }
 
