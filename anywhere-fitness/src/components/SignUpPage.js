@@ -22,10 +22,10 @@ const StyledSignUpPage = Styled.div`
 
 const SignUpPage = () => {
   const [signUpFormValues, setSignUpFormValues] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
+    userName: "",
     password: "",
+    email: "",
+    role: "",
   });
 
   const handleChange = (e) => {
@@ -37,6 +37,7 @@ const SignUpPage = () => {
 
   const signup = (e) => {
     e.preventDefault();
+    // console.log("signUpFormValues:",signUpFormValues);
     axios
       .post("https://team-anywhere-fitness.herokuapp.com/api/users/register", signUpFormValues)
       .then((resObj) => {
@@ -52,21 +53,23 @@ const SignUpPage = () => {
       <h2>Register for Anywhere Fitness</h2>
 
       <form onSubmit={signup}>
-        <label>First Name: </label>
-        <input type="text" name="firstName" onChange={handleChange} value={signUpFormValues.firstName} />
+        <label>Username: </label>
+        <input type="text" name="userName" onChange={handleChange} value={signUpFormValues.userName} />
         <br />
 
-         <label>Last Name: </label>
-         <input type="text" name="lastName" onChange={handleChange} value={signUpFormValues.lastName} />
-         <br />
-
-         <label>Username: </label>
-         <input type="text" name="username" onChange={handleChange} value={signUpFormValues.username} />
-         <br />
-           
-         <label>Password: </label>
+        <label>Password: </label>
          <input type="password" name="password" onChange={handleChange} value={signUpFormValues.password} />
         <br />
+
+         <label>Email: </label>
+         <input type="text" name="email" onChange={handleChange} value={signUpFormValues.email} />
+         <br />
+
+         <label>Role: </label>
+         <input type="text" name="role" onChange={handleChange} value={signUpFormValues.role} />
+         <br />
+           
+         
 
         <button>Register</button>
       </form>
