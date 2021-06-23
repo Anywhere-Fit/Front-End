@@ -1,10 +1,6 @@
-
-
-
 import React, { useState }  from 'react'
 import axios from "axios";
 import { useHistory } from "react-router";
-import React, { useState }  from 'react'
 import Styled from 'styled-components'
 
 
@@ -57,20 +53,9 @@ const LoginPage = () => {
       .catch((error) => console.log({ error }));
   };
 
-  return (
-    <div id="loginPage">
-      Login Page
-      <form onSubmit={login}>
-        <label>Username: </label>
-        <input type="text" name="username" value={loginFormValues.username} onChange={handleChange} />
-        <br />
-
-        <label>Password: </label>
-        <input type="password" name="password" value={loginFormValues.password} onChange={handleChange} />
-        <br />
-
+ 
     //  Created state for Login form values
-    const [ loginFormValues, setLoginFormValues ] = useState(initialLoginFormValues)
+    // const [ loginFormValues, setLoginFormValues ] = useState(initialLoginFormValues)
 
     // Temporary state to test login attempts
     const [ loginAttempts, setLoginAttempts ] = useState([])
