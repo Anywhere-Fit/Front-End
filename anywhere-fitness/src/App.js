@@ -19,26 +19,34 @@ const initialSignUpFormValues = {
   password: '',
 }
 
-
 function App() {
-
-// Created state for SignUp form values
- const [ signUpFormValues, setSignUpFormValues ] = useState(initialSignUpFormValues)
-
-//  Created state for Login form values
- const [ loginFormValues, setLoginFormValues ] = useState(initialLoginFormValues)
-  
+  //Private Route is available for all pages within the app.
   return (
+<<
+
+    </div>
     <div className="App">
-<<<<<<< HEAD
+
       <header className="App-header">
        <h1>Welcome to Anywhere Fintness!!</h1> 
       </header>
-=======
+
       <h1>Welcome to Anywhere Fitness!!</h1>
       <SignUpPage/>
->>>>>>> main
-    </div>
+
+
+        <div className="App">
+      <h1>Welcome to Anywhere Fitness!!</h1>
+ 
+    <Router>
+      <div className="App">
+        <h1>Welcome to Anywhere Fitness!!</h1>
+        <Switch>
+          <Route exact path="/login" component={LoginPage} />
+          <SignUpPage />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
