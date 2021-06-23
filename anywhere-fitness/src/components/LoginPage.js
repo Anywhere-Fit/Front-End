@@ -1,4 +1,23 @@
 import React, { useState }  from 'react'
+import Styled from 'styled-components'
+
+
+// Styling for the Login page
+const StyledLoginPage = Styled.div`
+    border: 2px solid black;
+    border-radius: 40px;
+    width: 60%;
+    margin: 2% auto 2% auto;
+    padding: 3%;
+    background-color: beige;
+
+    input {
+        margin: 2%;
+        font-size: 120%;
+    }
+    
+
+`
 
 
 // Created initial form values for Login Page
@@ -45,8 +64,8 @@ const LoginPage = () => {
 
 
     return (
-        <div id='loginPage'>
-            Login Page
+        <StyledLoginPage id='loginPage'>
+            <h2>Login to Access Classes</h2>
 
             <form onSubmit={onSubmitLogin}>
                 <label>Username: </label>
@@ -67,7 +86,7 @@ const LoginPage = () => {
 
                     <button>Login</button>
             </form>
-        </div>
+        </StyledLoginPage>
     )
 }
 

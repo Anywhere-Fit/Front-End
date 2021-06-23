@@ -1,5 +1,23 @@
 import React, { useState }  from 'react'
+import Styled from 'styled-components'
 
+
+// Styling for the SignUp page
+const StyledSignUpPage = Styled.div`
+    border: 2px solid black;
+    border-radius: 40px;
+    width: 60%;
+    margin: 2% auto 2% auto;
+    padding: 3%;
+    background-color: beige;
+
+    input {
+        margin: 2%;
+        font-size: 120%;
+    }
+    
+
+`
 
 // Created initial form values for SignUp Page
 const initialSignUpFormValues = {
@@ -47,8 +65,8 @@ const SignUpPage = () => {
     }
 
     return (
-        <div id='signUpPage'>
-            SignUp Page
+        <StyledSignUpPage id='signUpPage'>
+            <h2>Register for Anywhere Fitness</h2>
 
             <form onSubmit={onSubmitSignUp}>
                 <label>First Name: </label>
@@ -85,7 +103,7 @@ const SignUpPage = () => {
 
                     <button>Register</button>
             </form>
-        </div>
+        </StyledSignUpPage>
     )
 }
 
