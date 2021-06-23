@@ -15,9 +15,7 @@ const StyledLoginPage = Styled.div`
     input {
         margin: 2%;
         font-size: 120%;
-    }
-    
-
+    }   
 `;
 
 // Created initial form values for Login Page
@@ -58,6 +56,7 @@ const LoginPage = () => {
         <label>Password: </label>
         <input type="password" name="password" onChange={handleChange} value={loginFormValues.password} />
         <br />
+
         <button>Login</button>
       </form>
     </StyledLoginPage>

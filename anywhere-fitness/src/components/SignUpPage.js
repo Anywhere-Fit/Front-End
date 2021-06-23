@@ -15,8 +15,7 @@ const StyledSignUpPage = Styled.div`
     input {
         margin: 2%;
         font-size: 120%;
-    }
-    
+    }    
 
 `;
 // Created initial form values for SignUp Page
@@ -47,6 +46,7 @@ const SignUpPage = () => {
       .catch((err) => console.log({ err }));
   };
 
+
   return (
     <StyledSignUpPage id="signUpPage">
       <h2>Register for Anywhere Fitness</h2>
@@ -56,16 +56,16 @@ const SignUpPage = () => {
         <input type="text" name="firstName" onChange={handleChange} value={signUpFormValues.firstName} />
         <br />
 
-        <label>Last Name: </label>
-        <input type="text" name="lastName" onChange={handleChange} value={signUpFormValues.lastName} />
-        <br />
+         <label>Last Name: </label>
+         <input type="text" name="lastName" onChange={handleChange} value={signUpFormValues.lastName} />
+         <br />
 
-        <label>Username: </label>
-        <input type="text" name="username" onChange={handleChange} value={signUpFormValues.username} />
-        <br />
-
-        <label>Password: </label>
-        <input type="password" name="password" onChange={handleChange} value={signUpFormValues.password} />
+         <label>Username: </label>
+         <input type="text" name="username" onChange={handleChange} value={signUpFormValues.username} />
+         <br />
+           
+         <label>Password: </label>
+         <input type="password" name="password" onChange={handleChange} value={signUpFormValues.password} />
         <br />
 
         <button>Register</button>
@@ -75,3 +75,4 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
+

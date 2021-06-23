@@ -16,10 +16,10 @@ function App() {
           <Route exact path="/login" component={LoginPage} />
           <SignUpPage />
         </Switch>
-      </div>
+        </div>
     </Router>
+    </div>
   );
 }
-//test
 
 export default App;
