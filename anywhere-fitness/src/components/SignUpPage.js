@@ -1,7 +1,5 @@
 
 import React, { useState }  from 'react'
-
-import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import Styled from 'styled-components'
@@ -58,37 +56,37 @@ const SignUpPage = () => {
       .catch((err) => console.log({ err }));
   };
 
-  return (
-    <div id="signUpPage">
-      SignUp Page
-      <form onSubmit={signup}>
-        <label>First Name: </label>
-        <input type="text" name="firstName" onChange={handleChange} value={signUpFormValues.firstName} />
-        <br />
+//   return (
+//     <div id="signUpPage">
+//       SignUp Page
+//       <form onSubmit={signup}>
+//         <label>First Name: </label>
+//         <input type="text" name="firstName" onChange={handleChange} value={signUpFormValues.firstName} />
+//         <br />
 
-        <label>Last Name: </label>
-        <input type="text" name="lastName" onChange={handleChange} value={signUpFormValues.lastName} />
-        <br />
+//         <label>Last Name: </label>
+//         <input type="text" name="lastName" onChange={handleChange} value={signUpFormValues.lastName} />
+//         <br />
 
-        <label>Username: </label>
-        <input type="text" name="username" onChange={handleChange} value={signUpFormValues.username} />
-        <br />
+//         <label>Username: </label>
+//         <input type="text" name="username" onChange={handleChange} value={signUpFormValues.username} />
+//         <br />
 
-        <label>Password: </label>
-        <input type="password" name="password" onChange={handleChange} value={signUpFormValues.password} />
-        <br />
+//         <label>Password: </label>
+//         <input type="password" name="password" onChange={handleChange} value={signUpFormValues.password} />
+//         <br />
 
-        <button>Create Account</button>
-      </form>
-    </div>
-  );
-};
+//         <button>Create Account</button>
+//       </form>
+//     </div>
+//   );
+// };
 
-export default SignUpPage;
+// export default SignUpPage;
 
 
     // Created state for SignUp form values
-    const [ signUpFormValues, setSignUpFormValues ] = useState(initialSignUpFormValues)
+    // const [ signUpFormValues, setSignUpFormValues ] = useState(initialSignUpFormValues)
 
     // Created a temporary state to hold the signed up members 
     const [ members, setMembers ] = useState([])
