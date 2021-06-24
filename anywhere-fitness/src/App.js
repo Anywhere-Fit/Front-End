@@ -5,6 +5,7 @@ import ClassAddForm from "./components/ClassAddForm";
 import LoginPage from "./components/LoginPage";
 import SignUpPage from "./components/SignUpPage";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import NavBar from "./components/NavBar"
 
 function App() {
   //Private Route is available for all pages within the app.
@@ -12,6 +13,7 @@ function App() {
     <Router>
       <div className="App">
         <h1>Welcome to Anywhere Fitness!!</h1>
+        <NavBar/>
         <Switch>
           <Route exact path="/login" component={LoginPage} />
           <SignUpPage />
