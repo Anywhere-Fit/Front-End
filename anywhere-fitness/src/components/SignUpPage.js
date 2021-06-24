@@ -18,14 +18,14 @@ const StyledSignUpPage = Styled.div`
     }    
 
 `;
-// Created initial form values for SignUp Page
 
 const SignUpPage = () => {
+  const { push } = useHistory();
   const [signUpFormValues, setSignUpFormValues] = useState({
-    userName: "",
+    username: "",
     password: "",
-    email: "",
-    role: "",
+    authCode:"steakOnAMonday",
+
   });
 
   const handleChange = (e) => {
@@ -37,12 +37,12 @@ const SignUpPage = () => {
 
   const signup = (e) => {
     e.preventDefault();
-    // console.log("signUpFormValues:",signUpFormValues);
     axios
-      .post("https://team-anywhere-fitness.herokuapp.com/api/users/register", signUpFormValues)
+      // .post("https://team-anywhere-fitness.herokuapp.com/api/users/register", signUpFormValues)
+      .post("https://fitnessapplambda5.herokuapp.com/api/auth/register", signUpFormValues)
       .then((resObj) => {
         console.log("signup res", resObj);
-        useHistory.push("/login");
+        push("/login");
       })
       .catch((err) => console.log({ err }));
   };
@@ -51,10 +51,9 @@ const SignUpPage = () => {
   return (
     <StyledSignUpPage id="signUpPage">
       <h2>Register for Anywhere Fitness</h2>
-
       <form onSubmit={signup}>
         <label>Username: </label>
-        <input type="text" name="userName" onChange={handleChange} value={signUpFormValues.userName} />
+        <input type="text" name="username" onChange={handleChange} value={signUpFormValues.userName} />
         <br />
 
         <label>Password: </label>

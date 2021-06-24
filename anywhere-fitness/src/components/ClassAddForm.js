@@ -1,98 +1,118 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
-// import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const ClassAddForm = (props) => {
+	const { push } = useHistory();
 
+  const [classDetails, setClassDetails] = useState({
+    class_name: "",
+    location: "",
+    date: "", //YYYY/MM/DD
+    start_time: "", //HH:MM:SS
+    type_id: 1
+  });
 
-	const [classDetails, setClassDetails] = useState({
-		classId:"",
-		className:"",
-		classType:"",
-		startTime:"",
-		duration:"",
-		Intensity_Level:"",
-		Location:"",
- 		registered_Attendees:"",
-		Max_class_size:"",
-
-	});
-
-
-	
-	const handleChange = (e) => {
-        setClassDetails({
-            ...classDetails,
-            [e.target.name]: e.target.value
-        });
+  const handleChange = (e) => {
+    let value = e.target.value;
+    if (e.target.name === "type_id") {
+      value = parseInt(value, 10);
     }
-	
-    const handleSubmit = (e) => {
-		e.preventDefault();
-		
+
+	setClassDetails({ ...classDetails, [e.target.name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+	const newClass={
+		class_name: classDetails.class_name,
+		location: classDetails.location,
+		date: classDetails.date, 
+		start_time: classDetails.start_time, 
+		type_id: classDetails.type_id
 	}
-	
-	const { className,
-	classType,
-	startTime,
-	duration,
-	Intensity_Level,
-	Location,
-	 registered_Attendees,
-	Max_class_size, } = classDetails;
+	axiosWithAuth()
+		.post("/api/classes/", newClass)
+		.then(res=>{
+      push('/classlist');
+		})
+		.catch(err=>{
+			console.log(err);
+		})
+  };
 
-    return (
-	<div className="col">
-		<div className="modal-content">
-			<form onSubmit={handleSubmit}>
-				<div className="modal-header">						
-					<h4 className="modal-title">Add New <strong>Class-Details</strong></h4>
-				</div>
-				<div className="modal-body">					
-					<div className="form-group">
-						<label>Class-Name:</label>
-						<input value={className} onChange={handleChange} name="title" type="text" className="form-control"/>
-					</div>
-					<div className="form-group">
-						<label>Class-Type:</label>
-						<input value={classType} onChange={handleChange} name="director" type="text" className="form-control"/>
-					</div>
-					<div className="form-group">
-						<label>Start-Time:</label>
-						<input value={startTime} onChange={handleChange} name="genre" type="text" className="form-control"/>
-					</div>
-					<div className="form-group">
-						<label>Duration:</label>
-						<input value={duration} onChange={handleChange} name="metascore" type="number" className="form-control"/>
-					</div>		
-					<div className="form-group">
-						<label>Intensity-Level:</label>
-						<textarea value={Intensity_Level} onChange={handleChange} name="description" className="form-control"></textarea>
-					</div>
-					<div className="form-group">
-						<label>Location:</label>
-						<textarea value={Location} onChange={handleChange} name="description" className="form-control"></textarea>
-					</div>
-						
-					<div className="form-group">
-						<label>Registered-Attendees:</label>
-						<textarea value={registered_Attendees} onChange={handleChange} name="description" className="form-control"></textarea>
-					</div>	
-					<div className="form-group">
-						<label>Class_Size:</label>
-						<textarea value={Max_class_size} onChange={handleChange} name="description" className="form-control"></textarea>
-					</div>
-				</div>
-				<div className="modal-footer">			    
-					<input type="submit" className="btn btn-info" value="Save"/>
-					<input type="button" className="btn btn-default" value="Cancel"/>
-					{/* <Link to={`/movies/1`}><input type="button" className="btn btn-default" value="Cancel"/></Link> */}
-				</div>
-			</form>
-		</div>
-	</div>);
-}
+  const { class_name, location, date, start_time, type_id } = classDetails;
 
-	export default ClassAddForm;
+  return (
+    <div className="col">
+      <div className="modal-content">
+        <form onSubmit={handleSubmit}>
+          <div className="modal-header">
+            <h4 className="modal-title">
+              Add New <strong>Class-Details</strong>
+            </h4>
+          </div>
+          <div className="modal-body">
+            <div className="form-group">
+              <label>Class-Name:</label>
+              <input
+                value={class_name}
+                onChange={handleChange}
+                name="class_name"
+                type="text"
+                className="form-control"
+              />
+            </div>
+            <div className="form-group">
+              <label>Location:</label>
+              <input
+                value={location}
+                onChange={handleChange}
+                name="location"
+				type="text"
+                className="form-control"
+              ></input>
+            </div>
+            <div className="form-group">
+              <label>Date:(YYYY/MM/DD)</label>
+              <input
+                value={date}
+                onChange={handleChange}
+                name="date"
+				type="text"
+                className="form-control"
+              ></input>
+            </div>
+            <div className="form-group">
+              <label>Start-Time:(HH:MM:SS)</label>
+              <input
+                value={start_time}
+                onChange={handleChange}
+                name="start_time"
+                type="text"
+                className="form-control"
+              />
+            </div>
+            <div className="form-group">
+              <label>Class-Type:</label>
+              <input
+                value={type_id}
+                onChange={handleChange}
+                name="type_id"
+                type="number"
+                className="form-control"
+              />
+            </div>
+          </div>
+          <div className="modal-footer">
+            <input type="submit" className="btn btn-info" value="Save" />
+            <input type="button" className="btn btn-default" value="Cancel" />
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default ClassAddForm;

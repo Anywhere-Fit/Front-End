@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import Styled from "styled-components";
+import { axiosWithAuth} from '../utils/axiosWithAuth'
 
 // Styling for the Login page
 const StyledLoginPage = Styled.div`
@@ -20,9 +21,13 @@ const StyledLoginPage = Styled.div`
 
 // Created initial form values for Login Page
 const LoginPage = () => {
+
+  const { push } = useHistory();
+
   const [loginFormValues, setLoginFormValues] = useState({
     username: "",
     password: "",
+    authCode:"steakOnAMonday",
   });
 
   const handleChange = (e) => {
@@ -35,11 +40,11 @@ const LoginPage = () => {
   const login = (e) => {
     e.preventDefault();
     axios
-      .post("https://team-anywhere-fitness.herokuapp.com/api/users/login", loginFormValues)
+      .post("https://fitnessapplambda5.herokuapp.com/api/auth/login", loginFormValues)
       .then((res) => {
-        console.log("login resp", res, res.data);
-        localStorage.setItem("token", res.data);
-        useHistory.push("/dashboard");
+        console.log("login resp:", res.data.token);
+        localStorage.setItem("token", res.data.token);
+        push("/classlist");
       })
       .catch((error) => console.log({ error }));
   };

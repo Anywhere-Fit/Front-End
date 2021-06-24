@@ -1,98 +1,144 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-// import axios from 'axios';
 
 const ClassEditForm = (props) => {
+	const { push } = useHistory();
+	const {id} = useParams();
+
+		const [classDetails, setClassDetails] = useState({
+			class_name: "",
+			location: "",
+			date: "", //YYYY/MM/DD
+			start_time: "", //HH:MM:SS
+			type_id: 1
+		  });
+		  console.log("Edite:id:",id);
 
 
-	const [classDetails, setClassDetails] = useState({
-		classId:"",
-		className:"",
-		classType:"",
-		startTime:"",
-		duration:"",
-		Intensity_Level:"",
-		Location:"",
- 		registered_Attendees:"",
-		Max_class_size:"",
+		  const getClassData = () => {
+			axiosWithAuth()
+			  .get(`/api/classes/${id}`)
+			  .then((res) => {
+			     console.log("Edit Data:", res);
+				 setClassDetails(res.data);
+			  })
+			  .catch((err) => {
+				console.log(err);
+			  });
+		  };
 
-	});
+		  useEffect(() => {
+			getClassData();
+		  }, []);
 
 
-	
-	const handleChange = (e) => {
-        setClassDetails({
-            ...classDetails,
-            [e.target.name]: e.target.value
-        });
-    }
+
+
+		  const handleChange = (e) => {
+			let value = e.target.value;
+			if (e.target.name === "type_id") {
+			  value = parseInt(value, 10);
+			}
+			setClassDetails({ ...classDetails, [e.target.name]: value });
+		}
 	
     const handleSubmit = (e) => {
 		e.preventDefault();
+		const editedClass={
+			class_name: classDetails.class_name,
+			location: classDetails.location,
+			date: classDetails.date, 
+			start_time: classDetails.start_time, 
+			type_id: classDetails.type_id
+		}
+		console.log("Edite:id:",id);
+		console.log("Edit:EditedClass:", editedClass);
+		axiosWithAuth()
+		.patch(`/api/classes/${id}`, editedClass)
+		.then(res=>{
+			console.log("edited Res: ", res);
+			setClassDetails(res.data);
+            push('/classlist');
+		})
+		.catch(err=>{
+			console.log(err);
+		})
 		
 	}
 	
-	const { className,
-	classType,
-	startTime,
-	duration,
-	Intensity_Level,
-	Location,
-	 registered_Attendees,
-	Max_class_size, } = classDetails;
+	const { class_name, location, date, start_time, type_id } = classDetails;
 
-    return (
-	<div className="col">
-		<div className="modal-content">
+	return (
+		<div className="col">
+		  <div className="modal-content">
 			<form onSubmit={handleSubmit}>
-				<div className="modal-header">						
-					<h4 className="modal-title">Editing <strong>Class-Details</strong></h4>
+			  <div className="modal-header">
+				<h4 className="modal-title">
+				  Edit <strong>Class-Details</strong>
+				</h4>
+			  </div>
+			  <div className="modal-body">
+				<div className="form-group">
+				  <label>Class-Name:</label>
+				  <input
+					value={class_name}
+					onChange={handleChange}
+					name="class_name"
+					type="text"
+					className="form-control"
+				  />
 				</div>
-				<div className="modal-body">					
-					<div className="form-group">
-						<label>Class-Name:</label>
-						<input value={className} onChange={handleChange} name="title" type="text" className="form-control"/>
-					</div>
-					<div className="form-group">
-						<label>Class-Type:</label>
-						<input value={classType} onChange={handleChange} name="director" type="text" className="form-control"/>
-					</div>
-					<div className="form-group">
-						<label>Start-Time:</label>
-						<input value={startTime} onChange={handleChange} name="genre" type="text" className="form-control"/>
-					</div>
-					<div className="form-group">
-						<label>Duration:</label>
-						<input value={duration} onChange={handleChange} name="metascore" type="number" className="form-control"/>
-					</div>		
-					<div className="form-group">
-						<label>Intensity-Level:</label>
-						<textarea value={Intensity_Level} onChange={handleChange} name="description" className="form-control"></textarea>
-					</div>
-					<div className="form-group">
-						<label>Location:</label>
-						<textarea value={Location} onChange={handleChange} name="description" className="form-control"></textarea>
-					</div>
-						
-					<div className="form-group">
-						<label>Registered-Attendees:</label>
-						<textarea value={registered_Attendees} onChange={handleChange} name="description" className="form-control"></textarea>
-					</div>	
-					<div className="form-group">
-						<label>Class_Size:</label>
-						<textarea value={Max_class_size} onChange={handleChange} name="description" className="form-control"></textarea>
-					</div>
+				<div className="form-group">
+				  <label>Location:</label>
+				  <input
+					value={location}
+					onChange={handleChange}
+					name="location"
+					type="text"
+					className="form-control"
+				  ></input>
 				</div>
-				<div className="modal-footer">			    
-					<input type="submit" className="btn btn-info" value="Save"/>
-					<input type="button" className="btn btn-default" value="Cancel"/>
-					{/* <Link to={`/movies/1`}><input type="button" className="btn btn-default" value="Cancel"/></Link> */}
+				<div className="form-group">
+				  <label>Date:(YYYY/MM/DD)</label>
+				  <input
+					value={date}
+					onChange={handleChange}
+					name="date"
+					type="text"
+					className="form-control"
+				  ></input>
 				</div>
+				<div className="form-group">
+				  <label>Start-Time:(HH:MM:SS)</label>
+				  <input
+					value={start_time}
+					onChange={handleChange}
+					name="start_time"
+					type="text"
+					className="form-control"
+				  />
+				</div>
+				<div className="form-group">
+				  <label>Class-Type:</label>
+				  <input
+					value={type_id}
+					onChange={handleChange}
+					name="type_id"
+					type="number"
+					className="form-control"
+				  />
+				</div>
+			  </div>
+			  <div className="modal-footer">
+				<input type="submit" className="btn btn-info" value="Save" />
+				<input type="button" className="btn btn-default" value="Cancel" />
+			  </div>
 			</form>
+		  </div>
 		</div>
-	</div>);
+	  );
 }
 
 	export default ClassEditForm;
