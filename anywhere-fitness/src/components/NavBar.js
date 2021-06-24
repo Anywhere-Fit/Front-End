@@ -34,6 +34,7 @@ const NavBar = () => {
             <Link to='/login'>Login</Link>
             <Link>Sign Up</Link>
             <Link>Class List</Link>
+            <Link>Log Out</Link>
         </StyledNavBar>
     )
 }
