@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function instructorAxiosAuth() {
+export const instructorAxiosAuth= () =>{
   const token = localStorage.getItem("token");
 
   return axios.create({
@@ -11,7 +11,7 @@ export function instructorAxiosAuth() {
   });
 }
 
-const clientAxiosAuth = () => {
+export const clientAxiosAuth = () => {
   const token = localStorage.getItem("token");
 
   return axios.create({
@@ -22,4 +22,15 @@ const clientAxiosAuth = () => {
   });
 };
 
-export default clientAxiosAuth;
+export const axiosWithAuth = () => {
+  const token = localStorage.getItem("token");
+
+  return axios.create({
+    headers: {
+      Authorization: token,
+    },
+     baseURL: "https://fitnessapplambda5.herokuapp.com",
+  });
+};
+
+// export default clientAxiosAuth;

@@ -1,5 +1,7 @@
-import React, { useState }   from 'react'
+import React, { useState, useEffect }   from 'react'
 import Styled from 'styled-components'
+import ClassItem from './ClassItem';
+import { axiosWithAuth } from "./../utils/axiosWithAuth";
 
 
 // Styling for the ClassList page
@@ -16,30 +18,46 @@ const StyledClassListPage = Styled.div`
         font-size: 120%;
     } */
 `
-
-const initialClasses = [{
-    class: 'Yoga',
-    time: '8 AM',
-    spotsAvailable: 15
-}, {
-    class: 'Pilates',
-    time: '11 AM',
-    spotsAvailable: 8
-}, {
-    class: 'Ripped',
-    time: '5 PM',
-    spotsAvailable: 12
-}]
-
 const ClassListPage = () => {
+    const [classList, setClassList] = useState([]);
+    const getData = () => {
+      axiosWithAuth()
+        .get("/api/classes")
+        .then((res) => {
+        //   console.log("Classes Data:", res);
+          setClassList(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    useEffect(() => {
+      getData();
+    }, []);
 
-    const [ classList, setClassList ] = useState(initialClasses)
-
+    const deleteClass =(id) =>{
+        axiosWithAuth()
+       .delete(`/api/classes/${id}`)
+       .then(resp=>{
+           console.log("Delete Resp:", resp.data.removedClass.class_id);
+           console.log("Delete ClassList:", classList);
+               const newClassList = classList.filter(item => item.class_id !== resp.data.removedClass.class_id);
+             console.log("Delete NewClassList:", newClassList);
+               setClassList(newClassList);
+       })
+    }
+  
     return (
-        <StyledClassListPage>
-            Class List
-        </StyledClassListPage>
-    )
-}
-
+      <div className="ClassesList">
+        <header className="App-header">
+          <h3>Welcome to Class List Page</h3>
+          <div className="class-list">
+   { classList && classList.map(c =>{return <ClassItem key={c.class_id} classItem={c} deleteClass = {deleteClass} classList ={classList} setClassList={setClassList}/>})}
+          </div>
+        </header>
+      </div>
+    );
+  };
+ 
+  
 export default ClassListPage
