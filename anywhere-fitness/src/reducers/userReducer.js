@@ -19,11 +19,7 @@ import {
   const initialState = {
     error: '',
     isLoading: false,
-    allClasses: [
-        {
-        class_id:"",}
-    ],
-    
+    allClasses: [],  
   };
   
   export const userReducer = (state = initialState, action) => {

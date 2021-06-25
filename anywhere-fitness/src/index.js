@@ -15,11 +15,11 @@ const store = createStore(rootReducer,applyMiddleware(logger,thunk))
 ReactDOM.render(
  
   <React.StrictMode>
-     {/*  react-redux */}
-      {/* <Provider store={store}> */}
+      <Router>
+      <Provider store={store}>
     <App />
-     {/* </Provider> */}
-     {/* </Router> */}
+     </Provider>
+     </Router>
   </React.StrictMode>,
  
   document.getElementById('root')

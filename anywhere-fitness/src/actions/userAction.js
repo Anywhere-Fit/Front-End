@@ -38,10 +38,10 @@ export const CANCEL_CLASS_FAILURE = 'CANCEL_CLASS_FAILURE';
 
 //get class list
 export const getClasses = () => (dispatch) => {
-    dispatch({ type: ADD_CLASS_LOADING  });
+    dispatch({ type: GET_CLASSES_LOADING  });
     axiosWithAuth()
       .get('api/classes')
-      .then((res) => dispatch({ type: ADD_CLASS_SUCCESS, payload: res.data }))
+      .then((res) => dispatch({ type: GET_CLASSES_SUCCESS, payload: res.data }))
       .catch((err) => {
         dispatch({
           type: GET_CLASSES_FAILURE,
@@ -58,12 +58,13 @@ export const getClasses = () => (dispatch) => {
       .then((res) => dispatch({ type: ADD_CLASS_SUCCESS, payload: res.data }))
       .catch((err) => {
         dispatch({
-          type: GET_CLASSES_FAILURE,
+          type: ADD_CLASS_FAILURE,
           payload: err.response,
         });
       });
   };
   export const deleteClass = (class_id) => (dispatch) => {
+    console.log("in delete Action:", class_id);
     dispatch({ type:  DELETE_CLASS_LOADING });
     axiosWithAuth()
       .delete(`api/classes/${class_id}`)
@@ -76,10 +77,10 @@ export const getClasses = () => (dispatch) => {
       });
   };
   export const editClass = (class_id, editedClass) => (dispatch) => {
-    console.log(class_id);
+    console.log("in Edit userAction:", class_id);
     dispatch({ type: EDIT_CLASS_LOADING });
     axiosWithAuth()
-      .put(`api/classes/${class_id}`, editedClass)
+      .patch(`api/classes/${class_id}`, editedClass)
       .then((res) => dispatch({ type: EDIT_CLASS_SUCCESS, payload: res.data }))
       .catch((err) => {
         dispatch({
