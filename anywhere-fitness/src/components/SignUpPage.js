@@ -16,7 +16,6 @@ const StyledSignUpPage = Styled.div`
         margin: 2%;
         font-size: 120%;
     }    
-
 `;
 
 const SignUpPage = () => {
@@ -24,8 +23,7 @@ const SignUpPage = () => {
   const [signUpFormValues, setSignUpFormValues] = useState({
     username: "",
     password: "",
-    authCode:"steakOnAMonday",
-
+    authCode: "steakOnAMonday",
   });
 
   const handleChange = (e) => {
@@ -47,7 +45,6 @@ const SignUpPage = () => {
       .catch((err) => console.log({ err }));
   };
 
-
   return (
     <StyledSignUpPage id="signUpPage">
       <h2>Register for Anywhere Fitness</h2>
@@ -57,18 +54,16 @@ const SignUpPage = () => {
         <br />
 
         <label>Password: </label>
-         <input type="password" name="password" onChange={handleChange} value={signUpFormValues.password} />
+        <input type="password" name="password" onChange={handleChange} value={signUpFormValues.password} />
         <br />
 
-         <label>Email: </label>
-         <input type="text" name="email" onChange={handleChange} value={signUpFormValues.email} />
-         <br />
+        <label>Email: </label>
+        <input type="text" name="email" onChange={handleChange} value={signUpFormValues.email} />
+        <br />
 
-         <label>Role: </label>
-         <input type="text" name="role" onChange={handleChange} value={signUpFormValues.role} />
-         <br />
-           
-         
+        <label>Role: </label>
+        <input type="text" name="role" onChange={handleChange} value={signUpFormValues.role} />
+        <br />
 
         <button>Register</button>
       </form>
@@ -77,4 +72,3 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
-
