@@ -1,8 +1,7 @@
-import React from 'react'
+import React from "react";
 import Styled from "styled-components";
 import { Link } from "react-router-dom";
-
-
+import { useHistory } from "react-router";
 
 const StyledNavBar = Styled.div`
     border: 2px solid black;
@@ -24,19 +23,24 @@ const StyledNavBar = Styled.div`
         color: red;
     }
     
-`
+`;
 
 const NavBar = () => {
+  const { push } = useHistory();
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    push("/");
+  };
 
-    return (
-        <StyledNavBar>
-            <Link to='/login'>Login</Link>
-            <Link>Sign Up</Link>
-            <Link>Class List</Link>
-            <Link>Log Out</Link>
-        </StyledNavBar>
-    )
-}
+  return (
+    <StyledNavBar>
+      <Link to="/">Sign Up</Link>
+      <Link to="/login">Login</Link>
+      <Link to="/classlist">Class List</Link>
+      <Link onClick={logout}>Log Out</Link>
+    </StyledNavBar>
+  );
+};
 
-export default NavBar
+export default NavBar;
