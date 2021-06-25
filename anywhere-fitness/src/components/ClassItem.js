@@ -6,6 +6,7 @@ const ClassItem = (props) => {
   const { classItem, deleteClass } = props;
 
   const handleDelete = (id) => {
+    console.log("in ClassItem delete:", id);
     deleteClass(id);
     push("/classlist");
   };

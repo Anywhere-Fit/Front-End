@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import Styled from "styled-components";
-import { axiosWithAuth} from '../utils/axiosWithAuth'
+
 
 // Styling for the Login page
 const StyledLoginPage = Styled.div`

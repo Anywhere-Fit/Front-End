@@ -1,63 +1,46 @@
-import React, { useState, useEffect }   from 'react'
-import Styled from 'styled-components'
-import ClassItem from './ClassItem';
-import { axiosWithAuth } from "./../utils/axiosWithAuth";
+import React, {  useEffect } from "react";
+import Styled from "styled-components";
+import ClassItem from "./ClassItem";
+import { connect } from "react-redux";
+import { getClasses, deleteClass } from "../actions/userAction";
 
 
-// Styling for the ClassList page
-const StyledClassListPage = Styled.div`
-    border: 2px solid black;
-    border-radius: 40px;
-    width: 60%;
-    margin: 2% auto 2% auto;
-    padding: 3%;
-    background-color: beige;
+const ClassListPage = (props) => {
+  useEffect(() => {
+    props.getClasses();
+  }, []);
 
-    /* input {
-        margin: 2%;
-        font-size: 120%;
-    } */
-`
-const ClassListPage = () => {
-    const [classList, setClassList] = useState([]);
-    const getData = () => {
-      axiosWithAuth()
-        .get("/api/classes")
-        .then((res) => {
-        //   console.log("Classes Data:", res);
-          setClassList(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    useEffect(() => {
-      getData();
-    }, []);
-
-    const deleteClass =(id) =>{
-        axiosWithAuth()
-       .delete(`/api/classes/${id}`)
-       .then(resp=>{
-           console.log("Delete Resp:", resp.data.removedClass.class_id);
-           console.log("Delete ClassList:", classList);
-               const newClassList = classList.filter(item => item.class_id !== resp.data.removedClass.class_id);
-             console.log("Delete NewClassList:", newClassList);
-               setClassList(newClassList);
-       })
-    }
-  
-    return (
-      <div className="ClassesList">
-        <header className="App-header">
-          <h3>Welcome to Class List Page</h3>
-          <div className="class-list">
-   { classList && classList.map(c =>{return <ClassItem key={c.class_id} classItem={c} deleteClass = {deleteClass} classList ={classList} setClassList={setClassList}/>})}
-          </div>
-        </header>
-      </div>
-    );
+  const deleteClass = (id) => {
+    console.log("in ClassListPage delete:", id);
+    props.deleteClass(id);
   };
- 
-  
-export default ClassListPage
+
+  return (
+    <div className="ClassesList">
+      <header className="App-header">
+        <h3>Welcome to Class List Page</h3>
+        <div className="class-list">
+          {props.classList &&
+            props.classList.map((c) => {
+              return (
+                <ClassItem
+                  key={c.class_id}
+                  classItem={c}
+                  deleteClass={deleteClass}
+                />
+              );
+            })}
+        </div>
+      </header>
+    </div>
+  );
+};
+const mapStateToProps = (state) => {
+  return {
+    classList: state.userReducer.allClasses,
+    isLoading: state.userReducer.isLoading,
+  };
+};
+export default connect(mapStateToProps, { getClasses, deleteClass })(
+  ClassListPage
+);
